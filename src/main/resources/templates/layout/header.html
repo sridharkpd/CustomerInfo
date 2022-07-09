@@ -1,0 +1,96 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css"
+	rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.29.1/sweetalert2.css"
+	rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script  src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.29.1/sweetalert2.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+<script src="#" th:if="${pageScript}" type="text/javascript" th:src="@{'/' + ${pageScript} + '.js'}" ></script>
+
+<div sec:authorize="isAuthenticated()">
+<p style="text-align: center;">Username: <span sec:authentication="name"></p>
+</div>
+<div class="container">
+<!-- MENUS -->
+<div sec:authorize="isAuthenticated()">
+<a th:href="@{/cards}">Credit Card List</a><br/>
+<a th:href="@{/cards/create}">Create New Card</a><br/>
+<a th:href="@{/logout}">Logout</a>
+</div>
+
+</div>
+<th:block th:replace="popup :: popup_modal"></th:block>
+
+<script th:inline="javascript">
+jQuery(document).ready(function() {
+	var contextPath = /*[[${#httpServletRequest.getContextPath()}]]*/ '';
+	var msg = /*[[${mainMessage}]]*/ null;
+	if(msg != null) {
+    	 setTimeout(function(){
+    		 var msgType = /*[[${mainMessageType}]]*/ null;
+	    	 var redirectLink = /*[[${redirectLink}]]*/ null;
+	    	 
+    		 if (msgType == 'success') {
+    		      swal({
+    		        title: "Success!",
+    		        html: msg,
+    		        buttonsStyling: false,
+    		        confirmButtonClass: "btn btn-success",
+    		        type: "success"
+    		      }).then(function(){
+    		    	  if(redirectLink) {
+    		    		  window.location = contextPath + redirectLink;
+    		    	  }
+    		      }).catch(swal.noop)
+    		 } else if (msgType == 'error') {
+    			 swal({
+    		        title: "Error!",
+    		        html: msg,
+    		        buttonsStyling: false,
+    		        confirmButtonClass: "btn btn-warning",
+    		        type: "error"
+    		      }).then(function(){
+    		    	  if(redirectLink) {
+    		    		  window.location = contextPath + redirectLink;
+    		    	  }
+    		      }).catch(swal.noop)
+    		 } else if (msgType == 'warning') {
+    			 swal({
+    		        title: "Warning!",
+    		        html: msg,
+    		        buttonsStyling: false,
+    		        confirmButtonClass: "btn btn-danger",
+    		        type: "warning"
+    		      }).then(function(){
+    		    	  if(redirectLink) {
+    		    		  window.location = contextPath + redirectLink;
+    		    	  }
+    		      }).catch(swal.noop)
+    		 } else if (msgType == 'confirm') {
+    			 swal({
+			        title: 'Are you sure?',
+			        html: msg,
+			        type: 'warning',
+			        showCancelButton: true,
+			        confirmButtonText: 'Yes!',
+			        cancelButtonText: 'No',
+			        confirmButtonClass: "btn btn-success",
+			        cancelButtonClass: "btn btn-danger",
+			        buttonsStyling: false
+			      }).catch(swal.noop)
+    		 } else if (msgType == 'info') {
+    			 portalUtil.showInfo(msg, function() {
+    				 if(redirectLink) {
+		    		 	window.location = contextPath + redirectLink;
+		    		 }
+    			 });
+    		 }
+         }, 50);
+	}
+});
+</script>

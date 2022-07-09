@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="layout/header" />
+    <title>Home</title>
+</head>
+<body>
+<div class="container">
+
+<form th:action="@{#{'/cards'}}" autocomplete="off" th:method="POST" th:object="${creditCardDtl}">
+<h3 style="text-align: center;">Credit Card List</h3>
+
+<div class="pd-30 pd-sm-40"> 
+<div class="row row-xs"> <div class="col-md-5"> 
+<input class="form-control" placeholder="Card Number" th:field="*{ccNumber}" type="number" maxlength="20"> 
+</div> 
+ <div class="col-md mg-t-10 mg-md-t-0"> <button class="btn btn-primary">Search</button> 
+ <button type="button" th:onclick="|window.location.href='/cards'|" class="btn btn-primary">Reset</button>
+ </div> 
+ </div> </div><br></br>
+
+	<table class="table">
+    <thead>
+        <tr>
+            <th> Cardholder Name </th>
+            <th> Card Number </th>
+            <th> Expiry Date (YY/MM) </th>
+            <th> Created By </th>
+            <th> Action </th>
+        </tr>
+    </thead>
+    <tbody>
+	<tr th:if="${cards.empty}">
+            <td colspan="2"> No Data </td>
+        </tr>
+        <tr th:each="card : ${cards}">
+            <td><span th:text="${card.ccHolderName}"></span></td>
+            <td><span th:text="${card.ccNumber}"> </span></td>
+            <td><span th:text="${#dates.format(card.ccExpiry, 'yy/MM')}"> </span></td>
+            <td><span th:text="${card.createId}"> </span></td>
+            <td scope="row">
+            <a th:href="@{/cards/edit(id=${card.id})}" th:text="${'edit'}"></a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+				
+</form>
+</div>
+</body>
+</html>

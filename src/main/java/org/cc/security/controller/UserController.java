@@ -20,7 +20,7 @@ public class UserController {
     public String home(Model model) {
         CustomUser user = (CustomUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
-        return TemplateConstants.USER_HOME_PAGE;
+        return TemplateConstants.CARD_LIST_PAGE;
     }
 
     @GetMapping(UriConstants.USER_ADMIN)

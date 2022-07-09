@@ -6,8 +6,6 @@ import org.cc.security.entity.UserProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,10 +14,8 @@ public class UserService {
 	@Autowired
     private UserProfileService userProfileService;
 	
-	 private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public CustomUser getUserByUsername(String username) {
-        //CustomUser originUser = database.getDatabase().get(username);
     	UserProfile userProfile = userProfileService.findByUserName(username);
         
         if (userProfile == null) {
@@ -33,9 +29,6 @@ public class UserService {
         return AuthorityUtils.commaSeparatedStringToAuthorityList(role);
     }
     
-    private String getPassword(String raw) {
-        return passwordEncoder.encode(raw);
-    }
     
     
     

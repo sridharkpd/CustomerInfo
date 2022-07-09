@@ -20,6 +20,14 @@ public class UriConstants {
 	
 	public static final String USER_HOME = "/home";
 	
+	public static final String USER_REGISTER = "/register";
+	
+	public static final String CARDS = "/cards";
+	
+	public static final String CARDS_CREATE = "/create";
+	
+	public static final String CARDS_EDIT = "/edit";
+	
 	
 	
 	

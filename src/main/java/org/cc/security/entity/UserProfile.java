@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +24,8 @@ import lombok.NoArgsConstructor;
 public class UserProfile {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator="native")
+	@GenericGenerator(name = "native",strategy = "native")
     private Long id;
 	
 	@Column(name = "user_name")
@@ -32,5 +36,8 @@ public class UserProfile {
 	
 	@Column(name = "role")
     private String role;
+	
+	@Transient
+	private String confirmPassword;
 
 }
