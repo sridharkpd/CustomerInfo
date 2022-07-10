@@ -19,6 +19,3 @@ create_dt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 update_id varchar(100) NOT NULL DEFAULT 'system',
 update_dt timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-
-insert into CREDIT_CARD_DTL (id, cc_expiry, cc_holder_name, cc_number, create_dt, create_id, update_dt, update_id) 
-values (1, '2022-07-01', 'wewqe', '123', CURRENT_TIMESTAMP, 'admin', CURRENT_TIMESTAMP, 'admin');

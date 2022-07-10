@@ -18,7 +18,6 @@ public class CreditCardDtlDto {
     private String createId;
 	
     private String updateId;
-	
-	
+    
 
 }
